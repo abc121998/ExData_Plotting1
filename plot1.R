@@ -1,0 +1,8 @@
+library(dplyr)
+power_consumption <- read.csv("./household_power_consumption.txt",sep=";")
+power_consumption$Date <- as.Date(power_consumption$Date,format="%d/%m/%Y")
+Two_Days <- filter(power_consumption,Date=="2007-02-01"|Date=="2007-02-02")
+Two_Days$Datetime <- strptime(paste(Two_Days$Date,Two_Days$Time),format="%Y-%m-%d %H:%M:%S")
+png(filename = "Plot1.png")
+hist(as.numeric(Two_Days$Global_active_power),col="red",xlab="Global Active Power (Kilowats)",main="Global Active Power",lwd=2)
+dev.off()
